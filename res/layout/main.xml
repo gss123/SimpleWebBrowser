@@ -14,4 +14,55 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
+    <!-- Single row horizontal layout with 3 Buttons and an EditText object -->
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/back"
+            android:onClick="goBackHistory"
+            android:clickable="true"/>
+        <Button
+            android:id="@+id/forwardButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/forward"
+            android:onClick="goForwardHistory"
+            android:clickable="true"/>
+        <EditText
+            android:id="@+id/urlBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="8"
+            android:inputType="textUri"
+            android:editable="true"
+            android:hint="@string/http"/>
+        <Button
+            android:id="@+id/goButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@android:color/holo_blue_dark"
+            android:text="@string/go"
+            android:onClick="loadWebURL"
+            android:clickable="true"/>
+    </LinearLayout>
+
+    <!-- WebView is right below top row and fills the rest of the screen -->
+    <WebView
+        android:id="@+id/browserWindow"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom">
+    </WebView>
+
 </LinearLayout>

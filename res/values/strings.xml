@@ -11,4 +11,8 @@
 
 <resources>
     <string name="app_name">Web Browser</string>
+    <string name="http">http://</string>
+    <string name="back">Back</string>
+    <string name="forward">Forward</string>
+    <string name="go">Go</string>
 </resources>
