@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-Name: Jonathan Munevar
-Class: CS 211D
-Professor: A. Moghtanei
-Date: 07/10/2013
-Assignment: Assignment Four - Web Browser
-Filename: AndroidManifest.xml
+    Name: Jonathan Munevar
+    Class: CS 211D
+    Professor: A. Moghtanei
+    Date: 07/10/2013
+    Assignment: Assignment Four - Web Browser
+    Filename: AndroidManifest.xml
 -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
