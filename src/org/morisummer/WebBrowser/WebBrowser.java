@@ -29,13 +29,17 @@ import java.net.URL;
 public class WebBrowser extends Activity
 {
     private WebView webBrowser;
-    private WebSettings ws;
+    private WebSettings browserSettings;
     private EditText urlBar;
     private String urlString;
+    private String validatedURL;
+    private URL validURL;
+    private String currentURL;
     private Toast errorToast;
     private Toast currentURLToast;
 
     @Override
+//*******************************onCreate()*******************************
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -45,6 +49,7 @@ public class WebBrowser extends Activity
         webBrowser.setWebViewClient(new WebViewClient()
         {
             @Override
+        //****************************onPageFinished()****************************
             public void onPageFinished(WebView view, String url)
             {
                 super.onPageFinished(view, url);
@@ -52,15 +57,17 @@ public class WebBrowser extends Activity
                 updateURLBar();
             }
         });
-        ws = webBrowser.getSettings();
-        ws.setBuiltInZoomControls(true);
-        ws.setDisplayZoomControls(false);
-        ws.setJavaScriptEnabled(true);
+
+        browserSettings = webBrowser.getSettings();
+        browserSettings.setBuiltInZoomControls(true);
+        browserSettings.setDisplayZoomControls(false);
+        browserSettings.setJavaScriptEnabled(true);
 
         urlBar = (EditText) findViewById(R.id.urlBar);
     }
 
     @Override
+    //******************************onKeyDown()*******************************
     public boolean onKeyDown(int keyCode, KeyEvent event)
     {
         // Check if the key event was the Back button and if there's history
@@ -83,6 +90,7 @@ public class WebBrowser extends Activity
         return false;
     }
 
+//****************************goBackHistory()*****************************
     public void goBackHistory(View view)
     {
         if(webBrowser.canGoBack())
@@ -91,6 +99,7 @@ public class WebBrowser extends Activity
         }
     }
 
+//***************************goForwardHistory()***************************
     public void goForwardHistory(View view)
     {
         if(webBrowser.canGoForward())
@@ -99,27 +108,37 @@ public class WebBrowser extends Activity
         }
     }
 
+//******************************loadWebURL()******************************
     public void loadWebURL(View view)
     {
         urlString = urlBar.getText().toString();
-        urlString = URLUtil.guessUrl(urlString);
+
+        if (!urlString.startsWith("http://"))
+        {
+            urlString = "http://" + urlString;
+        }
 
         try
         {
-            URL url = new URL(urlString);
-            webBrowser.loadUrl(url.toString());
+            validURL = new URL(urlString);
         }
         catch (MalformedURLException e)
         {
-            Log.e("invalidURLEntered", e.toString());
+            Log.e("invalidURL", e.toString());
             errorToast = Toast.makeText(getApplicationContext(),
-                                        "Invalid URL",
-                                        Toast.LENGTH_SHORT);
-            errorToast.setGravity(Gravity.CENTER, 0, 0);
+                                              "Invalid URL",
+                                              Toast.LENGTH_SHORT);
+            errorToast.setGravity(Gravity.TOP, 0, 100);
             errorToast.show();
+        }
+        finally
+        {
+            validatedURL = URLUtil.guessUrl(urlString);
+            webBrowser.loadUrl(validatedURL);
         }
     }
 
+//****************************showCurrentURL()****************************
     public void showCurrentURL()
     {
         currentURLToast = Toast.makeText(getApplicationContext(),
@@ -129,9 +148,10 @@ public class WebBrowser extends Activity
         currentURLToast.show();
     }
 
+//*****************************updateURLBar()*****************************
     public void updateURLBar()
     {
-        urlString = webBrowser.getUrl();
-        urlBar.setText(urlString);
+        currentURL = webBrowser.getUrl();
+        urlBar.setText(currentURL);
     }
 }
