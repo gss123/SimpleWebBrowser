@@ -1,9 +1,6 @@
 /*
     Name: Jonathan Munevar
-    Class: CS 211D
-    Professor: A. Moghtanei
-    Date: 07/10/2013
-    Assignment: Assignment Four - Web Browser
+    Application: Simple Web Browser
     Filename: WebBrowser.java
 */
 
@@ -39,7 +36,6 @@ public class WebBrowser extends Activity
     private Toast currentURLToast;
 
     @Override
-//*******************************onCreate()*******************************
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -49,7 +45,6 @@ public class WebBrowser extends Activity
         webBrowser.setWebViewClient(new WebViewClient()
         {
             @Override
-        //****************************onPageFinished()****************************
             public void onPageFinished(WebView view, String url)
             {
                 super.onPageFinished(view, url);
@@ -67,7 +62,6 @@ public class WebBrowser extends Activity
     }
 
     @Override
-    //******************************onKeyDown()*******************************
     public boolean onKeyDown(int keyCode, KeyEvent event)
     {
         // Check if the key event was the Back button and if there's history
@@ -90,7 +84,6 @@ public class WebBrowser extends Activity
         return false;
     }
 
-//****************************goBackHistory()*****************************
     public void goBackHistory(View view)
     {
         if(webBrowser.canGoBack())
@@ -99,7 +92,6 @@ public class WebBrowser extends Activity
         }
     }
 
-//***************************goForwardHistory()***************************
     public void goForwardHistory(View view)
     {
         if(webBrowser.canGoForward())
@@ -108,7 +100,6 @@ public class WebBrowser extends Activity
         }
     }
 
-//******************************loadWebURL()******************************
     public void loadWebURL(View view)
     {
         urlString = urlBar.getText().toString();
@@ -138,7 +129,6 @@ public class WebBrowser extends Activity
         }
     }
 
-//****************************showCurrentURL()****************************
     public void showCurrentURL()
     {
         currentURLToast = Toast.makeText(getApplicationContext(),
@@ -148,7 +138,6 @@ public class WebBrowser extends Activity
         currentURLToast.show();
     }
 
-//*****************************updateURLBar()*****************************
     public void updateURLBar()
     {
         currentURL = webBrowser.getUrl();
